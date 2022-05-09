@@ -75,11 +75,12 @@ for (let i = 0; i < kotletoKasniai; i++) {
     // const gabaliukasSukramtomas = rand(1, 10);
     // kotletasSuvalgytasPer += gabaliukasSukramtomas;
 
+    let r;
     do {
-
+        r = rand(0, 2);
         kotletasSuvalgytasPer++;
-        
-    } while(rand(0, 2));
+
+    } while(r);
 
 
 }
