@@ -56,3 +56,20 @@ switch(kas) {
         console.log('LABANAKT');
 }
 
+let b;
+
+if (3 < 7) {
+    let a = 'valio';
+    b = 'valio';
+    
+}
+
+if (3 < 7) {
+    let a = 'valio';
+    let b = 'hhh';
+    
+}
+
+console.log(b);
+console.log(a);
+
