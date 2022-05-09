@@ -45,4 +45,52 @@ for (let i = 0; i < 10; i++) {
 
 }
 
+console.log(['','','','',''].length);
+
+
+for (let i = 0; i < 5; i++) {
+    console.log(`Dabar einasi DIDELIS: ${ i + 1 } ratas`);
+
+    for (let k = 0; k < 3; k++) {
+        console.log(`Dabar einasi MAZIUKAS: ${ k + 1 } ratukas`);
+    }
+
+}
+
+function rand(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// leksteje gali buti 10...30 kasniu kotleto
+// kasnis susikramto per rand 1...10
+// kasnis susikramto neaisku kaip- tikrinti po kiekvieno krimstelejimo
+
+const kotletoKasniai = rand(10, 30);
+let kotletasSuvalgytasPer = 0;
+
+for (let i = 0; i < kotletoKasniai; i++) {
+ 
+    // const gabaliukasSukramtomas = rand(1, 10);
+    // kotletasSuvalgytasPer += gabaliukasSukramtomas;
+
+    do {
+
+        kotletasSuvalgytasPer++;
+        
+    } while(rand(0, 2));
+
+
+}
+
+console.log(kotletasSuvalgytasPer);
+
+
+
+
+
+
+
+
 
