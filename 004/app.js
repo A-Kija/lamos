@@ -52,11 +52,17 @@ function rand(min, max) {
 }
 // nPlus.forEach(m => m.forEach(k => console.log(k)));
 
+nPlus.forEach((m) => {
+    m.forEach((k) => {
+        console.log(k);
+    });
+});
+
 const naujasNamas = [];
 
 for (let k = 0; k < 10; k++) {
   const aukstas = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < rand(3, 10); i++) {
     aukstas.push(rand(10, 99));
   }
   naujasNamas.push(aukstas);
