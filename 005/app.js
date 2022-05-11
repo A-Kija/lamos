@@ -36,3 +36,38 @@ for (let i = 2; i < 10; i++) {
 
 // console.table(copy3);
 console.table(ma);
+
+const kazkas = 'dsklfdvoi;dsfhvufdsvuilsfhidsiulvd';
+
+const namasSuKaminu = {
+  kaminas: 'yra 3metrai',
+  gyventojai: ["Petras", "Asilas", "Barsukas", "Kate"],
+  tas: kazkas
+};
+
+namasSuKaminu.animals = {cat: 'Murka', dog: 'Brisius'};
+
+namasSuKaminu.tas = 888;
+
+
+
+const namasSuKaminu2 = JSON.parse(JSON.stringify(namasSuKaminu));
+
+namasSuKaminu2.animals.cat = 'Kitas katinas';
+
+
+// const n4 = n1.slice(); // kopijavimas
+const n4 = [...n1]; // kopijavimas
+// n4.shift();
+
+// const a1 = {cat: 'Murka', dog: 'Brisius'};
+
+// const a2 = {...a1};
+
+
+console.log(namasSuKaminu, namasSuKaminu2);
+
+
+
+
+
