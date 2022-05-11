@@ -49,8 +49,6 @@ namasSuKaminu.animals = {cat: 'Murka', dog: 'Brisius'};
 
 namasSuKaminu.tas = 888;
 
-
-
 const namasSuKaminu2 = JSON.parse(JSON.stringify(namasSuKaminu));
 
 namasSuKaminu2.animals.cat = 'Kitas katinas';
@@ -65,7 +63,24 @@ const n4 = [...n1]; // kopijavimas
 // const a2 = {...a1};
 
 
-console.log(namasSuKaminu, namasSuKaminu2);
+
+
+const map = new Map();
+
+map.set('Murka', 5);
+map.set('Pilkis', 8);
+map.set('Pukis', 4);
+
+map.set('Pilkis', 9);
+
+console.log(map.get('Pilkis'));
+// map.delete('Pilkis');
+
+const masmap = [...map];
+
+console.log(map.size);
+
+
 
 
 
