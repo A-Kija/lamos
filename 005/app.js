@@ -1,3 +1,9 @@
+function rand(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 const n1 = ["Petras", "Asilas", "Barsukas", "Kate"];
 const n2 = ["Antanas", "Asilas", "Barsukas", "Simona"];
 
@@ -11,12 +17,22 @@ const copy3 = [];
 for (let i = 0; i < n1.length; i++) {
   const what = n1[i];
   for (let k = 0; k < n2.length; k++) {
-    if (n2[k] == what) {
+    if (n2[k] == n1[i]) {
       copy3.push(what);
       break;
     }
   }
 }
 
-console.table(copy3);
-console.table(copy2);
+// for (const ja of n1) {
+//   console.log(ja);
+// }
+
+const ma = [rand(1, 3), rand(1, 3)];
+for (let i = 2; i < 10; i++) {
+  ma.push(ma[i - 1] + ma[i - 2]);
+}
+
+
+// console.table(copy3);
+console.table(ma);
