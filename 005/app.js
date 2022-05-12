@@ -80,6 +80,21 @@ const masmap = [...map];
 
 console.log(map.size);
 
+const se = new Set();
+
+const va = [4,8,2,7,7,4];
+
+console.log(new Set(va));
+
+se.add({t:'cat'});
+se.add('dog');
+se.add({t:'cat'});
+se.delete('dog');
+
+console.log(se.has({t:'cat'}));
+
+console.log(se);
+
 
 
 
