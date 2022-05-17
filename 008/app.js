@@ -25,7 +25,7 @@ for (let sizeNumber = 0; sizeNumber < monsterSize; sizeNumber++) {
     }
     monster = monsterPart;
 }
-console.log(monster);
+// console.log(monster);
 
 const prime = (a) => {
     let count = 0;
@@ -71,9 +71,9 @@ const findMin = a => {
     return coord;
 }
 
-console.table(sqArray);
+// console.table(sqArray);
 
-console.log(findMin(sqArray));
+// console.log(findMin(sqArray));
 
 let s = 1000;
 
@@ -87,4 +87,27 @@ while(primeSum(sqArray) < 70){
 
 }
 
-console.table(sqArray);
+
+
+const longSet1 = new Set()
+do{
+    longSet1.add(rand(100, 999));
+} while(longSet1.size < 100);
+
+const longArray1 = [...longSet1];
+
+const longSet2 = new Set()
+do{
+    longSet2.add(rand(100, 999));
+} while(longSet2.size < 100);
+
+const longArray2 = [...longSet2];
+
+
+
+const freakArray = [];
+longArray1.forEach((v, i) => {
+    freakArray[v] = longArray2[i];
+});
+
+console.log(freakArray);
