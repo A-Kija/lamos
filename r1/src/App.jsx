@@ -34,11 +34,7 @@ function App() {
 
     }
 
-    const skaiciuotuvas = () => setSkaicius(s => s + 1);
-
-
-
-
+    const skaiciuotuvas = ka => setSkaicius(s => s + ka);
     return (
         <div className="App">
             <header className="App-header">
@@ -46,7 +42,8 @@ function App() {
                 <button onClick={beArgumentu}>BE</button>
                 <button onClick={() => suArgumentu('labas')}>SU</button>
                 <button onClick={keistiSpalva}>Kita spalva</button>
-                <button onClick={skaiciuotuvas}>+1</button>
+                <button onClick={() => skaiciuotuvas(1)}>+1</button>
+                <button onClick={() => skaiciuotuvas(-1)}>-1</button>
             </header>
         </div>
     );
