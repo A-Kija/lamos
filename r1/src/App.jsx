@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import './App.css';
 
+const katinukai = ['Pilkis', 'Murkis', 'Rainis'];
+
 function App() {
 
     const [spalva, setSpalva] = useState('yellow');
     const [skaicius, setSkaicius] = useState(1);
+    const [kv, setKv] = useState([]);
 
     // const mygtukas = () => {
     //     console.log('Aš gražus mygtukas');
@@ -39,6 +42,13 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <h1 style={{color: spalva}}>State {skaicius}</h1>
+
+                {
+                    katinukai.map((k, i) => <div key={i}>{k}</div>)
+                }
+
+
+
                 <button onClick={beArgumentu}>BE</button>
                 <button onClick={() => suArgumentu('labas')}>SU</button>
                 <button onClick={keistiSpalva}>Kita spalva</button>
