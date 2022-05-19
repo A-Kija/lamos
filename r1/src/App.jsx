@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './App.css';
+import randColor from './Functions/randColor';
 
-const katinukai = ['Pilkis', 'Murkis', 'Rainis'];
+// const katinukai = ['Pilkis', 'Murkis', 'Rainis'];
 
 function App() {
 
@@ -37,15 +38,21 @@ function App() {
 
     }
 
+    const addKv = () => {
+        setKv(k => [...k, randColor()]);
+    }
+
     const skaiciuotuvas = ka => setSkaicius(s => s + ka);
     return (
         <div className="App">
             <header className="App-header">
                 <h1 style={{color: spalva}}>State {skaicius}</h1>
-
+                
+                <div className="kvc">
                 {
-                    katinukai.map((k, i) => <div key={i}>{k}</div>)
+                    kv.map((c, i) => <div className="kv" key={i} style={{backgroundColor:c}}></div>)
                 }
+                </div>
 
 
 
@@ -54,6 +61,7 @@ function App() {
                 <button onClick={keistiSpalva}>Kita spalva</button>
                 <button onClick={() => skaiciuotuvas(1)}>+1</button>
                 <button onClick={() => skaiciuotuvas(-1)}>-1</button>
+                <button onClick={addKv}>ADD []</button>
             </header>
         </div>
     );
