@@ -4,6 +4,7 @@ import './App.css';
 function App() {
 
     const [spalva, setSpalva] = useState('yellow');
+    const [skaicius, setSkaicius] = useState(1);
 
     // const mygtukas = () => {
     //     console.log('Aš gražus mygtukas');
@@ -33,6 +34,11 @@ function App() {
 
     }
 
+    const skaiciuotuvas = () => setSkaicius(s => s + 1);
+
+
+
+
     return (
         <div className="App">
             <header className="App-header">
@@ -40,6 +46,7 @@ function App() {
                 <button onClick={beArgumentu}>BE</button>
                 <button onClick={() => suArgumentu('labas')}>SU</button>
                 <button onClick={keistiSpalva}>Kita spalva</button>
+                <button onClick={skaiciuotuvas}>+1</button>
             </header>
         </div>
     );
