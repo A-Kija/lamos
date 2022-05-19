@@ -1,19 +1,48 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-import Hello from './Components/009/Hello';
-import Kurmis from './Components/009/Kurmis';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Hello spalva="green" bg="yellow"/>
-        <Hello spalva="black" bg="white"></Hello>
-        <Hello spalva="gray" bg="pink"></Hello>
-        <Kurmis skaicius={6}></Kurmis>
-      </header>
-    </div>
-  );
+
+    const [spalva, setSpalva] = useState('yellow');
+
+    // const mygtukas = () => {
+    //     console.log('Aš gražus mygtukas');
+    //     return mygtukoBrolis;
+    // }
+
+    // const mygtukoBrolis = () => {
+    //     console.log('Aš gražus mygtuko brolis');
+    // }
+
+    const beArgumentu = () => {
+        console.log('beArgumentu');
+    }
+
+    const suArgumentu = ka => {
+        console.log('suArgumentu: ' + ka);
+    }
+
+    const keistiSpalva = () => {
+
+        // const nauja = spalva === 'yellow' ? 'pink' : 'yellow'; BLOGAI!!!!!
+
+
+        setSpalva(senojiSpalva => senojiSpalva === 'yellow' ? 'pink' : 'yellow');
+
+        // console.log(spalva);
+
+    }
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1 style={{color: spalva}}>State {skaicius}</h1>
+                <button onClick={beArgumentu}>BE</button>
+                <button onClick={() => suArgumentu('labas')}>SU</button>
+                <button onClick={keistiSpalva}>Kita spalva</button>
+            </header>
+        </div>
+    );
 }
 
 export default App;
