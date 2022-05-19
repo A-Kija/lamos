@@ -42,6 +42,10 @@ function App() {
         setKv(k => [...k, randColor()]);
     }
 
+    const remKv = () => {
+        setKv(k => k.slice(1));
+    }
+
     const skaiciuotuvas = ka => setSkaicius(s => s + ka);
     return (
         <div className="App">
@@ -50,7 +54,7 @@ function App() {
                 
                 <div className="kvc">
                 {
-                    kv.map((c, i) => <div className="kv" key={i} style={{backgroundColor:c}}></div>)
+                    kv.map((c, i) => <div className="kv" key={i} style={{backgroundColor:c}}>{i}</div>)
                 }
                 </div>
 
@@ -62,6 +66,7 @@ function App() {
                 <button onClick={() => skaiciuotuvas(1)}>+1</button>
                 <button onClick={() => skaiciuotuvas(-1)}>-1</button>
                 <button onClick={addKv}>ADD []</button>
+                <button onClick={remKv}>REMOVE []</button>
             </header>
         </div>
     );
