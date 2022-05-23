@@ -1,75 +1,28 @@
-import { useState } from 'react';
+import Tvenkinys from "./Components/011/Tvenkinys";
 import './App.css';
-import randColor from './Functions/randColor';
-
-// const katinukai = ['Pilkis', 'Murkis', 'Rainis'];
+const seaPlaners = [
+    {id: 1, type: 'man', name: 'Lina', color: 'blue'},
+    {id: 2, type: 'car', name: 'Opel', color: 'red'},
+    {id: 3, type: 'animal', name: 'Vilkas', color: 'green'},
+    {id: 4, type: 'fish', name: 'Ungurys', color: 'yellow'},
+    {id: 5, type: 'man', name: 'Tomas', color: 'green'},
+    {id: 6, type: 'animal', name: 'Bebras', color: 'red'},
+    {id: 7, type: 'animal', name: 'Barsukas', color: 'green'},
+    {id: 8, type: 'car', name: 'MB', color: 'blue'},
+    {id: 9, type: 'car', name: 'ZIL', color: 'red'},
+    {id: 10, type: 'man', name: 'Teta Toma', color: 'yellow'},
+  ];
+  
 
 function App() {
-
-    const [spalva, setSpalva] = useState('yellow');
-    const [skaicius, setSkaicius] = useState(1);
-    const [kv, setKv] = useState([]);
-
-    // const mygtukas = () => {
-    //     console.log('Aš gražus mygtukas');
-    //     return mygtukoBrolis;
-    // }
-
-    // const mygtukoBrolis = () => {
-    //     console.log('Aš gražus mygtuko brolis');
-    // }
-
-    const beArgumentu = () => {
-        console.log('beArgumentu');
-    }
-
-    const suArgumentu = ka => {
-        console.log('suArgumentu: ' + ka);
-    }
-
-    const keistiSpalva = () => {
-
-        // const nauja = spalva === 'yellow' ? 'pink' : 'yellow'; BLOGAI!!!!!
-
-
-        setSpalva(senojiSpalva => senojiSpalva === 'yellow' ? 'pink' : 'yellow');
-
-        // console.log(spalva);
-
-    }
-
-    const addKv = () => {
-        setKv(k => [...k, randColor()]);
-    }
-
-    const remKv = () => {
-        setKv(k => k.slice(1));
-    }
-
-    const skaiciuotuvas = ka => setSkaicius(s => s + ka);
     return (
         <div className="App">
-            <header className="App-header">
-                <h1 style={{color: spalva}}>State {skaicius}</h1>
-                
-                <div className="kvc">
-                {
-                    kv.map((c, i) => <div className="kv" key={i} style={{backgroundColor:c}}>{i}</div>)
-                }
-                </div>
-
-
-
-                <button onClick={beArgumentu}>BE</button>
-                <button onClick={() => suArgumentu('labas')}>SU</button>
-                <button onClick={keistiSpalva}>Kita spalva</button>
-                <button onClick={() => skaiciuotuvas(1)}>+1</button>
-                <button onClick={() => skaiciuotuvas(-1)}>-1</button>
-                <button onClick={addKv}>ADD []</button>
-                <button onClick={remKv}>REMOVE []</button>
-            </header>
+          <header className="App-header">
+           <Tvenkinys seaPlaners={seaPlaners}></Tvenkinys>
+          </header>
         </div>
-    );
+      );
+
 }
 
 export default App;
