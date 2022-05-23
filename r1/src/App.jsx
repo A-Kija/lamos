@@ -1,6 +1,7 @@
 import './App.scss';
 import { useEffect, useState } from 'react';
 import Books from './Components/011/Books';
+import axios from 'axios';
 
 
   
@@ -12,6 +13,10 @@ function App() {
 
     useEffect(() => {
         console.log('YES'); // REDY!
+        axios.get('http://in3.dev/knygos/')
+        .then(res => {
+            console.log(res.data);
+        })
     }, []);
 
     
