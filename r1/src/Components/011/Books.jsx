@@ -6,7 +6,7 @@ function Books({ books }) {
     return (
         <>
             {
-                books.map(b => <div key={b.id}>{b.title}</div>)
+                books.map(b => <div key={b.id}>{b.title}<img src={b.img} alt="bla bla"></img></div>)
             }
         </>
     );
