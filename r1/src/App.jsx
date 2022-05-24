@@ -1,12 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
 import './App.scss';
+import randColor from './Functions/randColor';
 
 function App() {
 
     const [count, setCount] = useState(null);
+    const [kv, setKv] = useState(null);
 
     const mano = useRef(0);
     const panda = useRef();
+
+    const addKv = () => {
+        setKv(k => [...k, randColor()]);
+    }
+
+    const remKv = () => {
+        setKv(k => k.slice(1));
+    }
+
+    useEffect(() => {
+        setKv(JSON.parse(localStorage.getItem('kv') ?? '[]'));
+    }, []);
+
+    useEffect(() => {
+        if (null === kv) {
+            return;
+        }
+        localStorage.setItem('kv', JSON.stringify(kv));
+    }, [kv]);
 
     useEffect(() => {
         setCount(parseInt(localStorage.getItem('count') ?? 0));
@@ -19,7 +40,7 @@ function App() {
         localStorage.setItem('count', count);
     }, [count]);
 
-    
+
 
     const add = () => {
         setCount(c => c + 1);
@@ -52,6 +73,13 @@ function App() {
            <button onClick={getCat}>Get Cat</button>
            <button onClick={remCat}>Remove Cat</button>
            <div ref={panda} data-panda="miega"></div>
+           <button onClick={addKv}>ADD []</button>
+            <button onClick={remKv}>REMOVE []</button>
+            <div className="kvc">
+                {
+                    kv ? kv.map((c, i) => <div className="kv" key={i} style={{backgroundColor:c}}>{i}</div>) : null
+                }
+                </div>
           </header>
         </div>
       );
