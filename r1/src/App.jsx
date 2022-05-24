@@ -1,44 +1,28 @@
+import { useRef, useState } from 'react';
 import './App.scss';
-import { useEffect, useState } from 'react';
-import Books from './Components/011/Books';
-import axios from 'axios';
-
-
-  
 
 function App() {
 
-    const [count, setCount] = useState(1);
-    const [books, setBooks] = useState([]);
-    const [users, setUsers] = useState([]);
+    const [count, setCount] = useState(0);
 
-    useEffect(() => {
-        console.log('YES'); // REDY!
-        axios.get('http://in3.dev/knygos/')
-        .then(res => {
-            console.log(res.data);
-            setBooks(res.data);
-        })
-    }, []);
+    const mano = useRef(0);
+    const panda = useRef();
 
-    useEffect(() => {
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(res => {
-            setUsers(res.data);
-        })
-    }, []);
+    const add = () => {
+        setCount(c => c + 1);
+        mano.current = mano.current + 3;
+        console.log(mano.current);
+        // const p = document.querySelector('#panda');
+        const p = panda.current;
+        console.log(p.dataset.panda);
+    }
 
-    
     return (
         <div className="App">
           <header className="App-header">
-           <h1>{count}</h1>
-           <button onClick={() => setCount(c => c + 1)}>+1</button>
-           {/* <Books books={books}></Books> */}
-
-           {
-               users.map(u => <div key={u.id}>{u.name}</div>)
-           }
+           <h1>useRef LocalStorage {count}</h1>
+           <button onClick={add}>+1</button>
+           <div ref={panda} data-panda="miega"></div>
           </header>
         </div>
       );
