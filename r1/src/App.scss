@@ -58,6 +58,7 @@
 
 
 $color: #0cf;
+$color2: crimson;
 
 button {
   display: inline-block;
@@ -128,6 +129,14 @@ button {
   100% {
     transform: rotate(360deg);
   }
+}
+button.red {
+  &:after {
+    background-color: $color2;
+  }
+    &:before {
+      background-color: darken($color2, 15%);
+    }
 }
 
 .green-field {

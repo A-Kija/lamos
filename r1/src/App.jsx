@@ -69,10 +69,13 @@ function App() {
     }
 
     const addCats = () => {
-        setKatinai(cats);
+        setKatinai(x => [...x, ...cats]);
     }
     const addDogs = () => {
         setKatinai(dogs);
+    }
+    const clear = () => {
+        setKatinai([]);
     }
 
     return (
@@ -98,7 +101,7 @@ function App() {
 
                         <button onClick={addCats}>Katinukai</button>
                         <button onClick={addDogs}>Šuniai</button>
-
+                        <button className="red" onClick={clear}>Namo visi</button>
                     </div>
 
                 </div>
