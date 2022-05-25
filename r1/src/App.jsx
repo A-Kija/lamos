@@ -5,6 +5,7 @@ import rand from './Functions/rand';
 function App() {
 
     const [kv, setKv] = useState(null);
+    const istorija = useRef([]);
 
     // PIRMAS KROVIMAS
     useEffect(() => {
@@ -26,7 +27,27 @@ function App() {
         for (let i = 0; i < kiekis; i++) {
             kvadratukai.push('^o^');
         }
-        setKv(k => null === k ? [...kvadratukai] : [...k, ...kvadratukai]);
+        setKv(k => {
+            istorija.current.unshift(null === k ? [...kvadratukai] : [...k, ...kvadratukai])
+            return null === k ? [...kvadratukai] : [...k, ...kvadratukai];
+        });
+    }
+
+    const isvalyti = () => {
+        setKv([]);
+    }
+
+    const atgal = () => {
+
+        console.log('click')
+
+        if (istorija.current.length === 0) {
+            setKv([]);
+        }
+
+        const senas = istorija.current.shift();
+
+        setKv(senas);
     }
 
 
@@ -41,6 +62,8 @@ function App() {
                     </div>
 
                 <button onClick={prideti}>Pridėti</button>
+                <button onClick={isvalyti}>Išvalyti</button>
+                <button onClick={atgal}>Atgal</button>
             </header>
         </div>
     );
