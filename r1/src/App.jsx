@@ -18,6 +18,7 @@ function App() {
             return;
         }
         localStorage.setItem('kv', JSON.stringify(kv));
+        istorija.current.unshift(kv);
     }, [kv]);
 
 
@@ -27,10 +28,7 @@ function App() {
         for (let i = 0; i < kiekis; i++) {
             kvadratukai.push('^o^');
         }
-        setKv(k => {
-            istorija.current.unshift(null === k ? [...kvadratukai] : [...k, ...kvadratukai])
-            return null === k ? [...kvadratukai] : [...k, ...kvadratukai];
-        });
+        setKv(k => null === k ? [...kvadratukai] : [...k, ...kvadratukai]);
     }
 
     const isvalyti = () => {
@@ -38,16 +36,21 @@ function App() {
     }
 
     const atgal = () => {
-
-        console.log('click')
-
-        if (istorija.current.length === 0) {
+        let senas = istorija.current.shift();
+        if (!senas) {
             setKv([]);
+        } else if (senas.length === kv.length) {
+            senas = istorija.current.shift();
+            if (!senas) {
+                setKv([]);
+            } else {
+                setKv(senas);
+            }
         }
-
-        const senas = istorija.current.shift();
-
-        setKv(senas);
+        else {
+            setKv(senas);
+        }
+        
     }
 
 
