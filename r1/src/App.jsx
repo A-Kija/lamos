@@ -2,10 +2,27 @@ import { useEffect, useRef, useState } from 'react';
 import './App.scss';
 import rand from './Functions/rand';
 
+const cats = [
+    'Mulkis',
+    'Kakius',
+    'Pilkius',
+    'Balčius'
+];
+
+const dogs = [
+    'Sniego',
+    'Dingo',
+    'Atsirado',
+    'Pifas',
+    'Bobikas'
+];
+
 function App() {
 
     const [kv, setKv] = useState(null);
     const istorija = useRef([]);
+
+    const [katinai, setKatinai] = useState([]);
 
     // PIRMAS KROVIMAS
     useEffect(() => {
@@ -20,7 +37,6 @@ function App() {
         localStorage.setItem('kv', JSON.stringify(kv));
         istorija.current.unshift(kv);
     }, [kv]);
-
 
     const prideti = () => {
         const kiekis = rand(5, 10);
@@ -50,23 +66,42 @@ function App() {
         else {
             setKv(senas);
         }
-        
     }
 
+    const addCats = () => {
+        setKatinai(cats);
+    }
+    const addDogs = () => {
+        setKatinai(dogs);
+    }
 
     return (
         <div className="App">
             <header className="App-header">
                 <h1>PRAKTIMUMAS</h1>
-                    <div className="kvc">
-                        {
-                            kv ? kv.map((k, i) => <div key={i} className="kv">{k}</div>) : null
-                        }
-                    </div>
+                <div className="kvc">
+                    {
+                        kv ? kv.map((k, i) => <div key={i} className="kv">{k}</div>) : null
+                    }
+                </div>
 
                 <button onClick={prideti}>Pridėti</button>
                 <button onClick={isvalyti}>Išvalyti</button>
                 <button onClick={atgal}>Atgal</button>
+                <div className="green-field">
+
+                    {
+                        katinai.map((c, i) => <div key={i}>{c}</div>)
+                    }
+
+                    <div className="buttons-field">
+
+                        <button onClick={addCats}>Katinukai</button>
+                        <button onClick={addDogs}>Šuniai</button>
+
+                    </div>
+
+                </div>
             </header>
         </div>
     );
