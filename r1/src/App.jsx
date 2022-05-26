@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import './App.scss';
 import randColor from './Functions/randColor';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,13 +18,22 @@ function App() {
         setAvys(a => [...a, avis])
     }
 
+    const go = id => {
+        setAvys(a => a.map(avis => avis.id === id ? {...avis, where: 'kirpykla'} : avis))
+    }
+
     return (
         <div className="App">
             <header className="App-header">
+                <div className="kvc">
+                    {
+                        avys.filter(a => a.where === 'kirpykla').map(a => <div key={a.id} className="kv" style={{background:a.color}}></div>)
+                    }
+                </div>
                 <h1>AVYS</h1>
                 <div className="kvc">
                     {
-                        avys.map(a => <div key={a.id} className="kv" style={{background:a.color}}></div>)
+                        avys.filter(a => a.where === 'ganykla').map(a => <div onClick={() => go(a.id)} key={a.id} className="kv" style={{background:a.color}}></div>)
                     }
                 </div>
                 <button onClick={newA}>Naujas Avinas</button>
