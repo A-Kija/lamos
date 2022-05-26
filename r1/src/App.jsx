@@ -19,7 +19,7 @@ function App() {
 
                 <input type="text" onChange={inputText} value={text}></input>
                 <select>
-                    <option
+                    <option></option>
                 </select>
             </header>
         </div>
