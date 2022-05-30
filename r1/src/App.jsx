@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './bootstrap.css';
 import Create from './Components/crud/Create';
 // import './App.scss';
@@ -6,6 +6,17 @@ import Create from './Components/crud/Create';
 
 
 function App() {
+
+    const [createData, setCreateData] = useState(null);
+
+    // Create
+    useEffect(() => {
+        if (null === createData) {
+            return;
+        }
+        // to localStorage
+
+    }, [createData])
 
     return (
         <>
