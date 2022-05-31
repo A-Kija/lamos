@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import './bootstrap.css';
 import Create from './Components/crud/Create';
+import { create } from './Functions/localStorage';
 // import './App.scss';
-// import getId from './Functions/getId';
+
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
         if (null === createData) {
             return;
         }
-        // to localStorage
+        create(createData);
 
     }, [createData])
 
@@ -23,7 +24,7 @@ function App() {
             <div className="container">
                 <div className="row">
                     <div className="col-4">
-                        <Create></Create>
+                        <Create setCreateData={setCreateData}></Create>
                     </div>
                     <div className="col-8">
                         One of three columns
