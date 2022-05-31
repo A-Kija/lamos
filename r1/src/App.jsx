@@ -9,6 +9,8 @@ import { create, read } from './Functions/localStorage';
 
 function App() {
 
+    const [lastUpdate, setLastUpdate] = useState(Date.now());
+
     const [exes, setExes] = useState(null);
 
     const [createData, setCreateData] = useState(null);
@@ -16,7 +18,7 @@ function App() {
     //Read
     useEffect(() => {
         setExes(read());
-    }, []);
+    }, [lastUpdate]);
 
     // Create
     useEffect(() => {
@@ -24,6 +26,7 @@ function App() {
             return;
         }
         create(createData);
+        setLastUpdate(Date.now());
 
     }, [createData])
 
