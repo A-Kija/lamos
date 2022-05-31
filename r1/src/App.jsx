@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
 import './bootstrap.css';
 import Create from './Components/crud/Create';
-import { create } from './Functions/localStorage';
+import List from './Components/crud/List';
+import { create, read } from './Functions/localStorage';
 // import './App.scss';
 
 
 
 function App() {
 
+    const [exes, setExes] = useState(null);
+
     const [createData, setCreateData] = useState(null);
+
+    //Read
+    useEffect(() => {
+        setExes(read());
+    }, []);
 
     // Create
     useEffect(() => {
@@ -27,7 +35,7 @@ function App() {
                         <Create setCreateData={setCreateData}></Create>
                     </div>
                     <div className="col-8">
-                        One of three columns
+                        <List exes={exes}></List>
                     </div>
                 </div>
             </div>
