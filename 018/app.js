@@ -3,6 +3,11 @@ class Stikline {
     static gerimukas = 'Pepsi';
     static registras = [];
 
+    static naujaStikline(t) {
+        // return;
+        return new this(t);
+    }
+
     static whatType() {
         console.log(this.gerimukas);
     }
@@ -37,7 +42,8 @@ class Stikline {
 }
 
 const s1 = new Stikline(200);
-const s2 = new Stikline(150);
+const s2 = Stikline.naujaStikline(150);
+console.log(s2);
 const s3 = new Stikline(100);
 
 console.log(Stikline.registras);
