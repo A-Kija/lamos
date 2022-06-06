@@ -32,6 +32,9 @@ class Krepsys {
 
 const Kr = new Krepsys();
 
-while(Kr.deti(new Grybas())){}
+let count = 0;// tik vizualizacijai
+while(Kr.deti(new Grybas())){
+    console.log('grybauju... ' + ++count);// tik vizualizacijai
+}
 
 console.log(Kr);
