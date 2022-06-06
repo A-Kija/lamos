@@ -1,3 +1,5 @@
+// import rand from '../../Functions/rand';
+
 function Books({ books }) {
 
     if (books.length === 0) {
