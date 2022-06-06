@@ -27,7 +27,17 @@ class Counter extends React.Component {
         return (
             <>
             <div>{this.state.counter}: {this.props.when}</div>
-            <button onClick={this.doCklick}>GO +1</button>
+            <button onClick={this.doCklick}>
+            <svg>
+                <use href="#star"/>
+            </svg>
+            <svg className="kitas-svg">
+                <use href="#star"/>
+            </svg>
+            <svg>
+                <use href="#star"/>
+            </svg>
+            </button>
             </>
         )
     }
