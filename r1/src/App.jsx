@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from 'react';
 import './App.scss';
 import colorReducer from './Reducers/colorReducer';
 import numberReducer from './Reducers/numberReducer';
+import kvReducer from './Reducers/kvReducer';
 import rand from './Functions/rand';
  
 
@@ -13,16 +14,23 @@ function App() {
     const [colorInput, setColorInput] = useState('#F8dd00');
     const [textInput, setTextInput] = useState('');
     const [h2, setH2] = useState('');
+    const [kv, dispachKv] = useReducer(kvReducer, []);
     // const goPink = () => {
     //     setColor('pink');
     // }
+
+    const goKv = () => {
+        const action = {
+            type: 'gokv'
+        }
+        dispachKv(action);
+    }
 
     const goPink = () => {
         const action = {
             type: 'go_pink'
         }
         dispachColor(action);
-
     }
 
     const goYellow = () => {
@@ -94,6 +102,12 @@ function App() {
             <button onClick={number2}>Go Two</button>
             <input type="text" value={textInput} onChange={e => setTextInput(e.target.value)}></input>
             <button onClick={goText}>Go Text</button>
+            <button onClick={goKv}>Go []</button>
+            </div>
+            <div className="kvc">
+                {
+                    kv.map((_, i) => <div className="kv" key={i}></div>)
+                }
             </div>
           </header>
         </div>
