@@ -11,6 +11,8 @@ function App() {
     const [color, dispachColor] = useReducer(colorReducer, 'yellow');
     const [numb, dispachNumb] = useReducer(numberReducer, '0000');
     const [colorInput, setColorInput] = useState('#F8dd00');
+    const [textInput, setTextInput] = useState('');
+    const [h2, setH2] = useState('');
     // const goPink = () => {
     //     setColor('pink');
     // }
@@ -60,6 +62,15 @@ function App() {
         dispachNumb(action);
     }
 
+    const goText = () => {
+        setH2(textInput);
+        const action = {
+            type: 'go_text',
+            payload: textInput
+        }
+        dispachNumb(action);
+    }
+
     // useEffect(() => {
     //     setInterval(()=> dispachColor({type: 'change_color'}), 3000)
     // }, [])
@@ -67,6 +78,7 @@ function App() {
     return (
         <div className="App">
           <header className="App-header">
+              <h2>{h2}</h2>
            <h1 style={{backgroundColor: color}}>Welcome to Reducer
            <span> {numb} </span>
            </h1>
@@ -80,6 +92,8 @@ function App() {
             <div className="kvc">
             <button onClick={number1}>Go One</button>
             <button onClick={number2}>Go Two</button>
+            <input type="text" value={textInput} onChange={e => setTextInput(e.target.value)}></input>
+            <button onClick={goText}>Go Text</button>
             </div>
           </header>
         </div>

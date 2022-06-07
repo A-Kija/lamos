@@ -10,6 +10,9 @@ function numberReducer(state, action) {
       case 'do2':
           newState = ('' + action.payload).padStart(4, 0);
           break;
+        case 'go_text':
+            newState = action.payload;
+            break;
       default:
         newState = state;
     }
