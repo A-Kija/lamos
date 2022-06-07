@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import './App.scss';
 import colorReducer from './Reducers/colorReducer';
 import numberReducer from './Reducers/numberReducer';
@@ -10,6 +10,7 @@ function App() {
     // const [color, setColor] = useState('yellow');
     const [color, dispachColor] = useReducer(colorReducer, 'yellow');
     const [numb, dispachNumb] = useReducer(numberReducer, '0000');
+    const [colorInput, setColorInput] = useState('#F8dd00');
     // const goPink = () => {
     //     setColor('pink');
     // }
@@ -36,6 +37,14 @@ function App() {
         dispachColor(action);
     }
 
+    const goChangeTo = () => {
+        const action = {
+            type: 'change_color_to',
+            payload: colorInput
+        }
+        dispachColor(action);
+    }
+
     const number1 = () => {
         const action = {
             type: 'do1'
@@ -50,6 +59,10 @@ function App() {
         }
         dispachNumb(action);
     }
+
+    // useEffect(() => {
+    //     setInterval(()=> dispachColor({type: 'change_color'}), 3000)
+    // }, [])
     
     return (
         <div className="App">
@@ -61,6 +74,8 @@ function App() {
             <button onClick={goPink}>Go pink</button>
             <button onClick={goYellow}>Go yellow</button>
             <button onClick={goChange}>Go and Change</button>
+            <button onClick={goChangeTo}>Go and Change to this</button>
+            <input type="color" value={colorInput} onChange={e => setColorInput(e.target.value)}></input>
             </div>
             <div className="kvc">
             <button onClick={number1}>Go One</button>
