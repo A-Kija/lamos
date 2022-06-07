@@ -19,12 +19,30 @@ function App() {
         dispachColor(action);
 
     }
+
+    const goYellow = () => {
+        const action = {
+            type: 'go_y'
+        }
+        dispachColor(action);
+    }
+
+    const goChange = () => {
+        const action = {
+            type: 'change_color'
+        }
+        dispachColor(action);
+    }
     
     return (
         <div className="App">
           <header className="App-header">
            <h1 style={{backgroundColor: color}}>Welcome to Reducer</h1>
+            <div className="kvc">
             <button onClick={goPink}>Go pink</button>
+            <button onClick={goYellow}>Go yellow</button>
+            <button onClick={goChange}>Go and Change</button>
+            </div>
           </header>
         </div>
       );

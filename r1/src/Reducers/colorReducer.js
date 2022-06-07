@@ -3,8 +3,14 @@ function colorReducer(state, action) {
 
   switch (action.type) {
     case 'go_pink':
-      newState = 'pink';
-      break;
+        newState = 'pink';
+        break;
+    case 'go_y':
+        newState = 'yellow';
+        break;
+    case 'change_color':
+        newState = state === 'yellow' ? 'pink' : 'yellow';
+        break;
     default:
       newState = state;
   }
