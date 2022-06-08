@@ -35,6 +35,14 @@ function listReducer(state, action) {
     case "freset":
         newState = state.map(o => ({...o, show: true}) )
       break;
+    case 'add': 
+        newState = [...state, {
+            number: ("" + rand(0, 9999)).padStart(4, 0),
+            color: '#000000',
+            show: true,
+            row: state.length
+          }];
+          break;
     default:
       newState = [...state];
   }

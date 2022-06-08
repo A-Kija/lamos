@@ -49,6 +49,13 @@ function App() {
         listDispach(action);
     }
 
+    const add = () => {
+        const action = {
+            type: 'add'
+        }
+        listDispach(action);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
@@ -60,10 +67,11 @@ function App() {
                 <button onClick={f5000}>Filter more 5000</button>
                 <button onClick={f4000}>Filter less 4000</button>
                 <button onClick={freset}>Filter Reset</button>
+                <button onClick={add}>Add to List</button>
                 </div>
                 <div className="kvc">
                     {
-                        list.map((o, i) => o.show ? <div key={i} className="kv"><i>{o.number}</i></div> : null)
+                        list.map((o, i) => o.show ? <div key={i} className="kv" style={{backgroundColor:o.color}}><i>{o.number}</i></div> : null)
                     }
                 </div>
 
