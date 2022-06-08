@@ -14,22 +14,32 @@ function App() {
         listDispach(action);
     }
 
+    const sortList = () => {
+        const action = {
+            type: 'sort'
+        }
+        listDispach(action);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
                 <h1>REDUCER</h1>
                 <div className="kvc">
                 <button onClick={newList}>New List</button>
+                <button onClick={sortList}>Sort List</button>
                 </div>
                 <div className="kvc">
                     {
-                        list.map((o, i) => <div key={i} className="kv">{o}</div>)
+                        list.map((o, i) => <div key={i} className="kv"><i>{o.number}</i></div>)
                     }
                 </div>
 
             </header>
         </div>
     );
+
+    
 
 }
 
