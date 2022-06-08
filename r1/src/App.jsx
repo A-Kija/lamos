@@ -35,6 +35,20 @@ function App() {
         listDispach(action);
     }
 
+    const freset = () => {
+        const action = {
+            type: 'freset'
+        }
+        listDispach(action);
+    }
+
+    const DefSortList = () => {
+        const action = {
+            type: 'DefSortList'
+        }
+        listDispach(action);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
@@ -42,8 +56,10 @@ function App() {
                 <div className="kvc">
                 <button onClick={newList}>New List</button>
                 <button onClick={sortList}>Sort List</button>
+                <button onClick={DefSortList}>Default Sort List</button>
                 <button onClick={f5000}>Filter more 5000</button>
                 <button onClick={f4000}>Filter less 4000</button>
+                <button onClick={freset}>Filter Reset</button>
                 </div>
                 <div className="kvc">
                     {

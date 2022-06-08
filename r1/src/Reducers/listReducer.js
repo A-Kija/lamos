@@ -5,10 +5,11 @@ function listReducer(state, action) {
   let newState;
   switch (action.type) {
     case "new":
-      newState = [...Array(10)].map((_) => ({
+      newState = [...Array(10)].map((_, i) => ({
         number: ("" + rand(0, 9999)).padStart(4, 0),
         color: randColor(),
-        show: true
+        show: true,
+        row: i
       }));
       // newState = [];
       // for (let i = 0; i < 10; i++) {
@@ -22,11 +23,17 @@ function listReducer(state, action) {
         return 0;
       });
       break;
+      case "DefSortList":
+        newState = [...state].sort((a, b) => a.row - b.row);
+        break;
     case "f5000":
         newState = state.map(o => o.number > 5000 ? {...o, show: true} : {...o, show: false} )
       break;
     case "f4000":
         newState = state.map(o => o.number < 4000 ? {...o, show: true} : {...o, show: false} )
+      break;
+    case "freset":
+        newState = state.map(o => ({...o, show: true}) )
       break;
     default:
       newState = [...state];
