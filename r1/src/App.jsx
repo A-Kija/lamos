@@ -21,6 +21,20 @@ function App() {
         listDispach(action);
     }
 
+    const f5000 = () => {
+        const action = {
+            type: 'f5000'
+        }
+        listDispach(action);
+    }
+
+    const f4000 = () => {
+        const action = {
+            type: 'f4000'
+        }
+        listDispach(action);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
@@ -28,10 +42,12 @@ function App() {
                 <div className="kvc">
                 <button onClick={newList}>New List</button>
                 <button onClick={sortList}>Sort List</button>
+                <button onClick={f5000}>Filter more 5000</button>
+                <button onClick={f4000}>Filter less 4000</button>
                 </div>
                 <div className="kvc">
                     {
-                        list.map((o, i) => <div key={i} className="kv"><i>{o.number}</i></div>)
+                        list.map((o, i) => o.show ? <div key={i} className="kv"><i>{o.number}</i></div> : null)
                     }
                 </div>
 

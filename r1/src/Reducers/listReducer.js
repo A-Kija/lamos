@@ -7,7 +7,8 @@ function listReducer(state, action) {
     case "new":
       newState = [...Array(10)].map((_) => ({
         number: ("" + rand(0, 9999)).padStart(4, 0),
-        color: randColor()
+        color: randColor(),
+        show: true
       }));
       // newState = [];
       // for (let i = 0; i < 10; i++) {
@@ -20,6 +21,12 @@ function listReducer(state, action) {
         if (a.number < b.number) return 1;
         return 0;
       });
+      break;
+    case "f5000":
+        newState = state.map(o => o.number > 5000 ? {...o, show: true} : {...o, show: false} )
+      break;
+    case "f4000":
+        newState = state.map(o => o.number < 4000 ? {...o, show: true} : {...o, show: false} )
       break;
     default:
       newState = [...state];
