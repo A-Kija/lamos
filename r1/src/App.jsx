@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import './App.scss';
 import listReducer from './Reducers/listReducer';
 
@@ -7,6 +7,8 @@ function App() {
 
     const [list, listDispach] = useReducer(listReducer, []);
     const [number, setNumber] = useState('');
+    const [range, setRange] = useState('0');
+    const doRange = useRef(true);
 
     const newList = () => {
         const action = {
@@ -74,6 +76,20 @@ function App() {
         listDispach(action);
     }
 
+    useEffect(() => {
+        if (!doRange.current) {
+            return;
+        }
+        doRange.current = false;
+        setTimeout(() => doRange.current = true, 20);
+
+        const action = {
+            type: 'range',
+            payload: range.padStart(4, 0)
+        }
+        listDispach(action);
+    }, [range])
+
     return (
         <div className="App">
             <header className="App-header">
@@ -90,6 +106,10 @@ function App() {
                 <div className="kvc">
                     <input onChange={e => setNumber(e.target.value)} value={number}></input>
                     <button onClick={hideNumber}>Hide it!</button>
+                </div>
+                <div className="kvc">
+                    <h2>{range.padStart(4, 0)}</h2>
+                    <input type="range" min="0" max="9999" onChange={e => setRange(e.target.value)} value={range}></input>
                 </div>
                 <div className="kvc">
                     {
