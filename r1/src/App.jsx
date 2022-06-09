@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import './App.scss';
 import listReducer from './Reducers/listReducer';
 
@@ -6,6 +6,7 @@ import listReducer from './Reducers/listReducer';
 function App() {
 
     const [list, listDispach] = useReducer(listReducer, []);
+    const [number, setNumber] = useState('');
 
     const newList = () => {
         const action = {
@@ -56,6 +57,23 @@ function App() {
         listDispach(action);
     }
 
+    const bla = n => {
+        const action = {
+            type: 'hide',
+            payload: n
+        }
+        listDispach(action);
+    }
+
+    const hideNumber = () => {
+        const action = {
+            type: 'hide',
+            payload: number
+        }
+        setNumber('');
+        listDispach(action);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
@@ -70,8 +88,12 @@ function App() {
                 <button onClick={add}>Add to List</button>
                 </div>
                 <div className="kvc">
+                    <input onChange={e => setNumber(e.target.value)} value={number}></input>
+                    <button onClick={hideNumber}>Hide it!</button>
+                </div>
+                <div className="kvc">
                     {
-                        list.map((o, i) => o.show ? <div key={i} className="kv" style={{backgroundColor:o.color}}><i>{o.number}</i></div> : null)
+                        list.map((o, i) => o.show ? <div key={i} className="kv" onClick={() => bla(o.number)} style={{backgroundColor:o.color}}><i>{o.number}</i></div> : null)
                     }
                 </div>
 
