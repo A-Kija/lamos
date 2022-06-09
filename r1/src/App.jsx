@@ -11,7 +11,11 @@ function App() {
     useEffect(() => {
         axios.get('http://in3.dev/knygos/')
         .then(res => {
-            dispachBooks({payload:res.data, type:'get_from_server'})
+            const action = {
+                payload:res.data,
+                type:'get_from_server'
+            }
+            dispachBooks(action);
         })
     }, []);
 
