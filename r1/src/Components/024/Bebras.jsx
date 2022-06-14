@@ -10,6 +10,11 @@ function Bebras() {
         <div>
             <h1>{counter1}</h1>
             <h1>{counter2}</h1>
+            {/* <Duomenys.Consumer>
+                    {
+                        data => <h1>{data.counter1}</h1>
+                    }
+            </Duomenys.Consumer> */}
         </div>
     )
 }
