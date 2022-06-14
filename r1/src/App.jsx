@@ -1,57 +1,22 @@
-import { useEffect, useReducer, useState } from 'react';
 import './App.scss';
-import axios from 'axios';
-import booksReducer from './Reducers/booksReducer';
+import {useState} from 'react';
+import Suo from './Components/024/Suo';
 
 function App() {
 
-    // const [books, setBooks] = useState([]);
-    const [books, dispachBooks] = useReducer(booksReducer, []);
+    const [counter1, setCounter1] = useState(1);
 
-    useEffect(() => {
-        axios.get('http://in3.dev/knygos/')
-        .then(res => {
-            const action = {
-                payload:res.data,
-                type:'get_from_server'
-            }
-            dispachBooks(action);
-        })
-    }, []);
-
-    const sortAZ = () => {
-        const action = {
-            type: 'sortAZ'
-        }
-        dispachBooks(action);
-    }
-    const sortDEF = () => {
-        const action = {
-            type: 'sortDEF'
-        }
-        dispachBooks(action);
-    }
 
     return (
         <div className="App">
-            <header className="App-header">
-                <h1>BOOKS REDUCER</h1>
-                <div className="kvc">
-                    <button onClick={sortAZ}>Sort AZ</button>
-                    <button onClick={sortDEF}>Reset Sort</button>
-                </div>
-
-                <div>
-                    {
-                       books.length ? books.map(b => <div key={b.id}>{b.title} <i>{b.price} EUR</i></div>) : <h2>Loading...</h2>
-                    }
-                </div>
-            </header>
+          <header className="App-header">
+            <h1>ConTeXt</h1>
+            <Suo></Suo>
+            <button onClick={() => setCounter1(c => c + 1)}>+1</button>
+          </header>
         </div>
-    );
-
+      );
+    }
     
-
-}
-
-export default App;
+    export default App;
+    
