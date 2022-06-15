@@ -1,27 +1,55 @@
+import { useReducer } from "react";
+import ld from "./Reducers/ld";
 import './App.scss';
-import {useState} from 'react';
-import Suo from './Components/024/Suo';
-import Duomenys from './Contexts/Duomenys';
+
+    const masyvas = [
+        {id:3, name: 'Peter', bid: 487.77, date: '2022-06-01T10:37'},
+        {id:7, name: 'Mary', bid: 125.33, date: '2022-06-01T11:37'},
+        {id:8, name: 'Ūkas', bid: 78.25, date: '2022-06-01T09:22'},
+        {id:9, name: 'Petras Dainorius', bid: 487.77, date: '2022-06-01T08:13'}
+    ];
 
 function App() {
 
-    const [counter1, setCounter1] = useState(1);
-    const [counter2, setCounter2] = useState(3);
+    const [list, setList] = useReducer(ld, masyvas);
 
 
     return (
-        <Duomenys.Provider value={{counter1, counter2}}>
         <div className="App">
-          <header className="App-header">
-            <h1>ConTeXt</h1>
-            <Suo></Suo>
-            <button onClick={() => setCounter1(c => c + 1)}>+1</button>
-            <button onClick={() => setCounter2(c => c + 3)}>+3</button>
-          </header>
+            <header className="App-header">
+                <h1>Koks nors sortas</h1>
+                <div className="kvc">
+                    <select>
+                        <option value="date_asc">DATE ASC</option>
+                        <option value="date_desc">DATE DESC</option>
+                        <option value="bid_asc">BID ASC</option>
+                        <option value="bid_desc">BID DESC</option>
+                        <option value="name_asc">NAME ASC</option>
+                        <option value="name_desc">NAME DESC</option>
+                        <option value="random">RAND</option>
+                    </select>
+                </div>
+
+                <div>
+                    {
+                        list.map(b => (
+                        <div className="kvc">
+                            <span>ID: {b.id}</span>
+                            <span>Name: {b.name}</span>
+                            <span>BID: {b.bid}</span>
+                            <span>Date: {b.date}</span>
+                        </div>
+                        ))
+                    }
+                    
+                </div>
+            </header>
         </div>
-        </Duomenys.Provider>
-      );
-    }
+    );
+
     
-    export default App;
-    
+
+}
+
+export default App;
+
