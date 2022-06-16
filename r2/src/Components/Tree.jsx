@@ -1,7 +1,12 @@
+import { useContext } from "react";
+import TreeContext from "./TreeContext";
+
 function Tree({tree}) {
 
+    const {setDeleteData} = useContext(TreeContext);
+
     const handleDelete = () => {
-        // setDeleteData(ex);
+        setDeleteData(tree);
     }
 
     const handleEdit = () => {

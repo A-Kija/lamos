@@ -47,6 +47,18 @@ VALUES (?, ?, ?)
     });
 });
 
+//DELETE
+// DELETE FROM table_name WHERE condition;
+app.delete("/medziai/:treeId", (req, res) => {
+    const sql = `
+DELETE FROM trees
+WHERE id = ?
+`;
+    con.query(sql, [req.params.treeId], (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
 
 
 
