@@ -1,6 +1,6 @@
 // import { useState } from "react";
 
-import Ex from "./Ex";
+import Tree from "./Tree";
 
 function List({exes, setDeleteData, setModalData}) {
 
@@ -12,7 +12,7 @@ function List({exes, setDeleteData, setModalData}) {
             <div className="card-body">
                 <ul className="list-group">
                     {
-                    exes ? exes.map(ex => <Ex key={ex.id} ex={ex} setDeleteData={setDeleteData} setModalData={setModalData}></Ex>) : null
+                    exes ? exes.map(tree => <Tree key={tree.id} tree={tree}></Tree>) : null
                     }
                 </ul>
             </div>
