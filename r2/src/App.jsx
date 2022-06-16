@@ -5,6 +5,7 @@ import Create from './Components/Create';
 import List from './Components/List';
 import Edit from './Components/Edit';
 import TreeContext from './Components/TreeContext';
+import axios from 'axios';
 
 function App() {
 
@@ -13,13 +14,16 @@ function App() {
   const [trees, setTrees] = useState(null);
   const [modalData, setModalData] = useState(null);
 
+  
   const [createData, setCreateData] = useState(null);
   const [deleteData, setDeleteData] = useState(null);
   const [editData, setEditData] = useState(null);
 
+
   //Read
   useEffect(() => {
-
+    axios.get('http://localhost:3003/medziai')
+    .then(res => setTrees(res.data));
   }, [lastUpdate]);
 
   // Create
