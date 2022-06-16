@@ -14,7 +14,7 @@ function App() {
   const [trees, setTrees] = useState(null);
   const [modalData, setModalData] = useState(null);
 
-  
+
   const [createData, setCreateData] = useState(null);
   const [deleteData, setDeleteData] = useState(null);
   const [editData, setEditData] = useState(null);
@@ -29,10 +29,11 @@ function App() {
   // Create
   useEffect(() => {
     if (null === createData) return;
-
-
-
-    setLastUpdate(Date.now());
+    axios.post('http://localhost:3003/medziai', createData)
+    .then(_ => {
+      setLastUpdate(Date.now());
+    });
+    
   }, [createData]);
 
   // Delete
@@ -49,17 +50,17 @@ function App() {
     setLastUpdate(Date.now());
   }, [editData]);
 
-
   return (
     <TreeContext.Provider value={
       {
-        trees
+        trees,
+        setCreateData
       }
     }>
       <div className="container">
         <div className="row">
           <div className="col-4">
-            <Create setCreateData={setCreateData}></Create>
+            <Create/>
           </div>
           <div className="col-8">
             <List trees={trees} setDeleteData={setDeleteData} setModalData={setModalData}></List>

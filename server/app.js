@@ -11,6 +11,7 @@ app.use(
 );
 app.use(express.json());
 
+
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
