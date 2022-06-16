@@ -20,6 +20,7 @@ const con = mysql.createConnection({
 });
 
 //Routes
+//READ
 app.get("/medziai", (req, res) => {
     const sql = `
   SELECT
@@ -31,6 +32,24 @@ app.get("/medziai", (req, res) => {
         res.send(result);
     });
 });
+//CREATE
+// INSERT INTO table_name (column1, column2, column3, ...)
+// VALUES (value1, value2, value3, ...);
+app.post("/medziai", (req, res) => {
+    const sql = `
+INSERT INTO trees
+(type, title, height)
+VALUES (?, ?, ?)
+`;
+    con.query(sql, [req.body.type, req.body.title, req.body.height], (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+
+
+
 
 app.listen(port, () => {
     console.log(`Bebras klauso porto Nr ${port}`);
