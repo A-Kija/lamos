@@ -59,7 +59,9 @@ function App() {
       {
         trees,
         setCreateData,
-        setDeleteData
+        setDeleteData,
+        setModalData,
+        modalData
       }
     }>
       <div className="container">
@@ -68,11 +70,11 @@ function App() {
             <Create/>
           </div>
           <div className="col-8">
-            <List trees={trees} setModalData={setModalData}></List>
+            <List></List>
           </div>
         </div>
       </div>
-      <Edit setEditData={setEditData} modalData={modalData} setModalData={setModalData}></Edit>
+      <Edit/>
     </TreeContext.Provider>
   );
 

@@ -62,7 +62,6 @@ WHERE id = ?
 
 
 
-
 app.listen(port, () => {
     console.log(`Bebras klauso porto Nr ${port}`);
 });
