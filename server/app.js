@@ -77,7 +77,6 @@ app.put("/medziai/:treeId", (req, res) => {
 });
 
 
-
 app.listen(port, () => {
     console.log(`Bebras klauso porto Nr ${port}`);
 });
