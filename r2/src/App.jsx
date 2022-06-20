@@ -6,6 +6,7 @@ import List from './Components/List';
 import Edit from './Components/Edit';
 import TreeContext from './Components/TreeContext';
 import axios from 'axios';
+import Message from './Components/Message';
 
 function App() {
 
@@ -76,6 +77,7 @@ function App() {
         </div>
       </div>
       <Edit/>
+      <Message/>
     </TreeContext.Provider>
   );
 

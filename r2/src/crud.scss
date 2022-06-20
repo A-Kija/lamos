@@ -1,6 +1,7 @@
 body {
     font-family: 'Oswald', sans-serif;
 }
+
 .list-group-item {
     .item {
         display: flex;
@@ -29,4 +30,13 @@ body {
 .modal {
     display: block;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.show-message {
+    display: flex;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 100%;
+    justify-content: flex-end;
 }
