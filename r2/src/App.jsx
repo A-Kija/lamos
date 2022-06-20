@@ -20,6 +20,8 @@ function App() {
   const [deleteData, setDeleteData] = useState(null);
   const [editData, setEditData] = useState(null);
 
+  const [message, setMessage] = useState(null);
+
 
   //Read
   useEffect(() => {
@@ -64,6 +66,7 @@ function App() {
         setModalData,
         modalData,
         setEditData,
+        message
       }
     }>
       <div className="container">
