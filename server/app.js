@@ -46,6 +46,17 @@ VALUES (?, ?, ?)
         res.send({ result, msg: { text: 'OK, Zuiki', type: 'success' } });
     });
 });
+app.post("/gerybes", (req, res) => {
+    const sql = `
+INSERT INTO goods
+(title)
+VALUES (?)
+`;
+    con.query(sql, [req.body.title], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'OK, Zuiki', type: 'success' } });
+    });
+});
 
 //DELETE
 // DELETE FROM table_name WHERE condition;
