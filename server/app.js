@@ -21,11 +21,17 @@ const con = mysql.createConnection({
 
 //Routes
 //READ
+// SELECT column_name(s)
+// FROM table1
+// LEFT JOIN table2
+// ON table1.column_name = table2.column_name;
 app.get("/medziai", (req, res) => {
     const sql = `
   SELECT
-  *
-  FROM trees
+  t.title, g.title AS good, height, type, t.id
+  FROM trees AS t
+  LEFT JOIN goods AS g
+  ON t.good_id = g.id
 `;
     con.query(sql, (err, result) => {
         if (err) throw err;
