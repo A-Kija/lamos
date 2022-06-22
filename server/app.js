@@ -59,7 +59,7 @@ INSERT INTO trees
 (type, title, height, good_id)
 VALUES (?, ?, ?, ?)
 `;
-    con.query(sql, [req.body.type, req.body.title, req.body.height, req.body.good], (err, result) => {
+    con.query(sql, [req.body.type, req.body.title, req.body.height ? req.body.height : 0, req.body.good !== '0' ? req.body.good : null], (err, result) => {
         if (err) throw err;
         res.send({ result, msg: { text: 'OK, Zuiki', type: 'success' } });
     });
@@ -107,10 +107,10 @@ WHERE id = ?
 app.put("/medziai/:treeId", (req, res) => {
     const sql = `
     UPDATE trees
-    SET title = ?, type = ?, height = ?
+    SET title = ?, type = ?, height = ?, good_id = ?
     WHERE id = ?
 `;
-    con.query(sql, [req.body.title, req.body.type, req.body.height, req.params.treeId], (err, result) => {
+    con.query(sql, [req.body.title, req.body.type, req.body.height, req.body.good, req.params.treeId], (err, result) => {
         if (err) throw err;
         res.send({ result, msg: { text: 'OK, Barsukai', type: 'danger' } });
     });
