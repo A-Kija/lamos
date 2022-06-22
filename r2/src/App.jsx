@@ -10,6 +10,7 @@ import Message from './Components/Message';
 import GoodContext from './Components/goods/GoodContext';
 
 import CreateGoods from './Components/goods/Create';
+import ListGoods from './Components/goods/List';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
   //Goods
   const [goods, setGoods] = useState(null);
   const [createDataGoods, setCreateDataGoods] = useState(null);
+  const [deleteDataGoods, setDeleteDataGoods] = useState(null);
 
 
 
@@ -94,6 +96,16 @@ function App() {
       .then(res => setGoods(res.data));
   }, [lastUpdate]);
 
+    // Delete
+    useEffect(() => {
+      if (null === deleteDataGoods) return;
+      axios.delete('http://localhost:3003/gerybes/' + deleteDataGoods.id)
+        .then(res => {
+          showMessage(res.data.msg);
+          setLastUpdate(Date.now());
+        });
+    }, [deleteDataGoods]);
+
 
 
 
@@ -126,13 +138,16 @@ function App() {
       }
     }>
     <GoodContext.Provider value={{
-      setCreateData: setCreateDataGoods
+      setCreateData: setCreateDataGoods,
+      goods,
+      setDeleteData: setDeleteDataGoods
     }}>
       <div className="container">
         <div className="row">
           <div className="col-4">
             <Create />
             <CreateGoods/>
+            <ListGoods/>
           </div>
           <div className="col-8">
             <List></List>

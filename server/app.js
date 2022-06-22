@@ -89,6 +89,17 @@ WHERE id = ?
     });
 });
 
+app.delete("/gerybes/:goodId", (req, res) => {
+    const sql = `
+DELETE FROM goods
+WHERE id = ?
+`;
+    con.query(sql, [req.params.goodId], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'OK, Bebrai', type: 'info' } });
+    });
+});
+
 //EDIT
 // UPDATE table_name
 // SET column1 = value1, column2 = value2, ...

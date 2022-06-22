@@ -19,7 +19,8 @@ function Tree({tree}) {
                 <div className="content">
                     <b>{tree.title}</b>
                     <span>{['Leaf', 'Spike', 'Palm'][tree.type - 1]}</span>
-                    <i>{tree.height}</i> <u>{tree.good}</u>
+                    <i>{tree.height.toFixed(2)} m</i>
+                    <u>{tree.good}</u>
                 </div>
                 <div className="buttons">
                     <button type="button" className="btn btn-outline-success ml-2" onClick={handleEdit}>Edit</button>
