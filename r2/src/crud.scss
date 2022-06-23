@@ -53,6 +53,12 @@ body {
             align-items: center;
             justify-content: flex-start;
         }
+        .form-group {
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+        }
         .nest-content {
             display: flex;
             align-items: center;
