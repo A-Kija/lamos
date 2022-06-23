@@ -53,6 +53,24 @@ app.get("/gerybes", (req, res) => {
         res.send(result);
     });
 });
+
+
+app.get("/front/gerybes", (req, res) => {
+    const sql = `
+  SELECT
+  g.title, g.id, COUNT(t.id) AS trees_count
+  FROM trees AS t
+  RIGHT JOIN goods AS g
+  ON t.good_id = g.id
+  GROUP BY g.id
+  ORDER BY trees_count DESC
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
 //CREATE
 
 // INSERT INTO table_name (column1, column2, column3, ...)

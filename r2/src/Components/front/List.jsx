@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import Good from "./Good";
-import GoodContext from "./GoodContext";
+import FrontContext from "./FrontContext";
 
 function List() {
 
-    const {goods} = useContext(GoodContext);
+    const {goods} = useContext(FrontContext);
 
     return (
         <div className="card mt-4 mb-4">
