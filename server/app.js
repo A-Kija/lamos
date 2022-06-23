@@ -71,6 +71,20 @@ app.get("/front/gerybes", (req, res) => {
     });
 });
 
+app.get("/front/medziai", (req, res) => {
+    const sql = `
+  SELECT
+  t.title, g.title AS good, height, type, t.id
+  FROM trees AS t
+  LEFT JOIN goods AS g
+  ON t.good_id = g.id
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
 //CREATE
 
 // INSERT INTO table_name (column1, column2, column3, ...)
@@ -122,6 +136,7 @@ WHERE id = ?
         res.send({ result, msg: { text: 'OK, Bebrai', type: 'info' } });
     });
 });
+
 
 //EDIT
 // UPDATE table_name

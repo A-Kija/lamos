@@ -2,10 +2,12 @@ import FrontContext from "./Components/front/FrontContext";
 import FrontList from './Components/front/List';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import TreeList from "./Components/front/TreeList";
 
 function Front() {
 
     const [goods, setGoods] = useState(null);
+    const [trees, setTrees] = useState(null);
 
     // Read
     useEffect(() => {
@@ -16,16 +18,28 @@ function Front() {
             });
     }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:3003/front/medziai')
+            .then(res => {
+                console.log(res.data);
+                setTrees(res.data);
+            });
+    }, []);
+
     return (
         <FrontContext.Provider value={
             {
-                goods
+                goods,
+                trees
             }
         }>
             <div className="container">
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-5">
                         <FrontList />
+                    </div>
+                    <div className="col-7">
+                        <TreeList />
                     </div>
                 </div>
             </div>
