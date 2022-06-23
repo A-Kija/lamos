@@ -4,12 +4,13 @@ import FrontContext from "./FrontContext";
 
 function Tree({ tree }) {
 
-    const { setDeleteData, setModalData } = useContext(FrontContext);
+    const { setCreateComment } = useContext(FrontContext);
 
     const [com, setCom] = useState('');
 
     const handleComment = () => {
-
+        setCreateComment({com, treeId: tree.id});
+        setCom('');
     }
 
     return (
@@ -28,6 +29,11 @@ function Tree({ tree }) {
                 <div className="buttons">
                     <button type="button" className="btn btn-outline-success ml-2" onClick={handleComment}>I want to say</button>
                 </div>
+                <ul>
+                    {
+                    tree.coms ? tree.coms.slice(0, -5).split('-^o^-,').map((c, i) => <li key={i}>{c}</li>) : null
+                    }
+                </ul>
             </div>
         </li>
     );

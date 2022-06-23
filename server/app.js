@@ -74,10 +74,13 @@ app.get("/front/gerybes", (req, res) => {
 app.get("/front/medziai", (req, res) => {
     const sql = `
   SELECT
-  t.title, g.title AS good, height, type, t.id
+  t.title, g.title AS good, height, type, t.id, GROUP_CONCAT(c.com, '-^o^-') AS coms
   FROM trees AS t
   LEFT JOIN goods AS g
   ON t.good_id = g.id
+  LEFT JOIN comments AS c
+  ON c.tree_id = t.id
+  GROUP BY t.id
 `;
     con.query(sql, (err, result) => {
         if (err) throw err;
@@ -107,6 +110,18 @@ INSERT INTO goods
 VALUES (?)
 `;
     con.query(sql, [req.body.title], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'OK, Zuiki', type: 'success' } });
+    });
+});
+
+app.post("/front/komentarai", (req, res) => {
+    const sql = `
+INSERT INTO comments
+(com, tree_id)
+VALUES (?, ?)
+`;
+    con.query(sql, [req.body.com, req.body.treeId], (err, result) => {
         if (err) throw err;
         res.send({ result, msg: { text: 'OK, Zuiki', type: 'success' } });
     });
