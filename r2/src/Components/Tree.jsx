@@ -27,11 +27,11 @@ function Tree({ tree }) {
                     <button type="button" className="btn btn-outline-danger ml-2" onClick={handleDelete}>Delete</button>
                 </div>
             </div>
-            <ul className="list-group">
+            <ul className="list-group mt-2">
                 {
                     tree.coms ? tree.coms.slice(0, -5).split('-^o^-,').map((c, i) => (
 
-                    <li  className="list-group-item" key={i}>
+                    <li className="list-group-item" key={i}>
                         <div>{c}</div>
                         <button type="button" className="btn btn-outline-danger mt-3" onClick={() => handleDeleteComment(tree.coms_id.split(',')[i])}>Delete</button>
                     </li>
