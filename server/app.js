@@ -185,6 +185,20 @@ app.put("/medziai/:treeId", (req, res) => {
 });
 
 
+app.put("/front/balsuok/:treeId", (req, res) => {
+    const sql = `
+    UPDATE trees
+    SET rates = rates + 1, rate_sum = rate_sum + ?
+    WHERE id = ?
+`;
+    con.query(sql, [req.body.rate, req.params.treeId], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'Tu prabalsavai', type: 'danger' } });
+    });
+});
+
+
+
 app.listen(port, () => {
     console.log(`Bebras klauso porto Nr ${port}`);
 });

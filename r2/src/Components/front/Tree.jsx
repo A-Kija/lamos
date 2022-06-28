@@ -4,7 +4,7 @@ import FrontContext from "./FrontContext";
 
 function Tree({ tree }) {
 
-    const { setCreateComment } = useContext(FrontContext);
+    const { setCreateComment, setRateNow } = useContext(FrontContext);
 
     const [com, setCom] = useState('');
 
@@ -17,6 +17,10 @@ function Tree({ tree }) {
 
     const rateIt = e => {
         setRate(e.target.value);
+        setRateNow({
+            rate: parseInt(e.target.value),
+            id: tree.id
+        });
     }
 
     return (
