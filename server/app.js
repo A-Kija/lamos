@@ -77,7 +77,7 @@ app.get("/front/gerybes", (req, res) => {
 app.get("/front/medziai", (req, res) => {
     const sql = `
   SELECT
-  t.title, g.title AS good, height, type, t.id, GROUP_CONCAT(c.com, '-^o^-') AS coms
+  t.title, g.title AS good, height, type, t.id, GROUP_CONCAT(c.com, '-^o^-') AS coms, t.rates, t.rate_sum
   FROM trees AS t
   LEFT JOIN goods AS g
   ON t.good_id = g.id
