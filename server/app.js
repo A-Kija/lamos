@@ -27,11 +27,14 @@ const con = mysql.createConnection({
 // ON table1.column_name = table2.column_name;
 app.get("/medziai", (req, res) => {
     const sql = `
-  SELECT
-  t.title, g.title AS good, height, type, t.id
-  FROM trees AS t
-  LEFT JOIN goods AS g
-  ON t.good_id = g.id
+    SELECT
+    t.title, g.title AS good, height, type, t.id, GROUP_CONCAT(c.com, '-^o^-') AS coms, GROUP_CONCAT(c.id) AS coms_id
+    FROM trees AS t
+    LEFT JOIN goods AS g
+    ON t.good_id = g.id
+    LEFT JOIN comments AS c
+    ON c.tree_id = t.id
+    GROUP BY t.id
 `;
     con.query(sql, (err, result) => {
         if (err) throw err;
@@ -149,6 +152,18 @@ WHERE id = ?
     con.query(sql, [req.params.goodId], (err, result) => {
         if (err) throw err;
         res.send({ result, msg: { text: 'OK, Bebrai', type: 'info' } });
+    });
+});
+
+
+app.delete("/komentarai/:comId", (req, res) => {
+    const sql = `
+DELETE FROM comments
+WHERE id = ?
+`;
+    con.query(sql, [req.params.comId], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'Komentaro pabaiga', type: 'info' } });
     });
 });
 
