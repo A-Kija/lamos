@@ -7,8 +7,8 @@ function Back({ show }) {
     if (show === 'admin') {
         return (
             <>
-            <h1>BACK</h1>
             <Nav/>
+            <h1>BACK</h1>
             </>
         )
     }
