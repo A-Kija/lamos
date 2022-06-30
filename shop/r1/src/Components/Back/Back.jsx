@@ -9,6 +9,12 @@ function Back({ show }) {
 
     const [lastUpdate, setLastUpdate] = useState(Date.now());
 
+    const [messages, setMessages] = useState([
+        {id: 4646, text: 'valio', type: 'danger'},
+        {id: 56456, text: 'katinai ateina gert', type: 'info'},
+        {id: 786, text: 'rytoj lis daug lietaus', type: 'success'},
+    ]);
+
     const [cats, setCats] = useState(null);
     const [createCat, setCreateCat] = useState(null);
     const [deleteCat, setDeleteCat] = useState(null);
@@ -56,7 +62,8 @@ function Back({ show }) {
         <BackContext.Provider value={{
             setCreateCat,
             cats,
-            setDeleteCat
+            setDeleteCat,
+            messages
         }}>
             {
                 show === 'admin' ?
