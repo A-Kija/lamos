@@ -15,6 +15,8 @@ function Back({ show }) {
     const [cats, setCats] = useState(null);
     const [createCat, setCreateCat] = useState(null);
     const [deleteCat, setDeleteCat] = useState(null);
+    const [editCat, setEditCat] = useState(null);
+    const [modalCat, setModalCat] = useState(null);
 
     // Read
     useEffect(() => {
@@ -65,7 +67,9 @@ function Back({ show }) {
             setCreateCat,
             cats,
             setDeleteCat,
-            messages
+            messages,
+            setEditCat,
+            setModalCat
         }}>
             {
                 show === 'admin' ?

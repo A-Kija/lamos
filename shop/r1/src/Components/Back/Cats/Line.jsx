@@ -10,7 +10,7 @@ function Line({ line }) {
     }
 
     const handleEdit = () => {
-        // setModalData(tree);
+        setModalCat(tree);
     }
 
     return (
