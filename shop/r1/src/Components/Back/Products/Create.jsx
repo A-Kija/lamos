@@ -3,9 +3,12 @@ import BackContext from '../BackContext';
 
 function Create() {
 
-    const { cats } = useContext(BackContext);
+    const { cats, setCreateCat } = useContext(BackContext);
 
     const [title, setTitle] = useState('');
+    const [price, setPrice] = useState('');
+    const [inStock, setInStock] = useState(false);
+    const [cat, setCat] = useState('0');
 
     const handleCreate = () => {
         const data = { title };
@@ -30,12 +33,12 @@ function Create() {
                     <small className="form-text text-muted">Enter price.</small>
                 </div>
                 <div className="form-group form-check">
-                    <input type="checkbox" className="form-check-input" id="in--stock" />
+                    <input type="checkbox" className="form-check-input" id="in--stock" checked={inStock} onChange={() => setInStock(i => !i)} />
                     <label className="form-check-label" htmlFor="in--stock">Check me out</label>
                 </div>
                 <div className="form-group">
                     <label>Categories</label>
-                    <select className="form-control" onChange={e => setType(e.target.value)} value={type}>
+                    <select className="form-control" onChange={e => setCat(e.target.value)} value={cat}>
                         <option value="0">Please, select your Cat</option>
                         {
                             cats.map(c => <option key={c.id} value={c.id}>{c.title}</option>)
