@@ -107,19 +107,13 @@ body {
     align-items: flex-end;
     z-index: 3;
     .alert-danger {
-        color: #721c24;
         background-color: #f8d7dac2;
-        border-color: #f5c6cb;
     }
     .alert-info {
-        color: #0c5460;
         background-color: #d1ecf1c2;
-        border-color: #bee5eb;
     }
     .alert-success {
-        color: #155724;
         background-color: #d4eddac2;
-        border-color: #c3e6cb;
     }
     div {
         width: 50%;
