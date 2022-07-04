@@ -81,8 +81,30 @@ app.post("/admin/products", (req, res) => {
     });
 });
 
+app.get("/admin/products", (req, res) => {
+    const sql = `
+  SELECT p.id, price, p.title, c.title AS cat, in_stock
+  FROM products AS p
+  LEFT JOIN cats AS c
+  ON c.id = p.cats_id
+  ORDER BY title
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
 
-
+app.delete("/admin/products/:id", (req, res) => {
+    const sql = `
+    DELETE FROM products
+    WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'OK, Product gone', type: 'success' } });
+    });
+});
 
 
 
