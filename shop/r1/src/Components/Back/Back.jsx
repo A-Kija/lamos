@@ -22,6 +22,8 @@ function Back({ show }) {
     const [products, setProducts] = useState(null);
     const [createProduct, setCreateProduct] = useState(null);
     const [deleteProduct, setDeleteProduct] = useState(null);
+    const [editProduct, setEditProduct] = useState(null);
+    const [modalProduct, setModalProduct] = useState(null);
 
     // Read
     useEffect(() => {
@@ -119,7 +121,10 @@ function Back({ show }) {
             setCreateProduct,
             products,
             showMessage,
-            setDeleteProduct
+            setDeleteProduct,
+            setEditProduct,
+            setModalProduct,
+            modalProduct,
         }}>
             {
                 show === 'admin' ?
