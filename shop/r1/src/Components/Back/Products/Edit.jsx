@@ -42,7 +42,7 @@ function Edit() {
             in_stock: parseInt(inStock),
             price: parseFloat(price),
             cat: parseInt(cat),
-            lu: Date.parse(lu)
+            lu: '2022-07-19 11:11:11'
         };
         setEditProduct(data);
         setModalProduct(null);
