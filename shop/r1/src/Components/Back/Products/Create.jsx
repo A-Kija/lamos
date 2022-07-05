@@ -13,46 +13,34 @@ function Create() {
     const [cat, setCat] = useState('0');
     const fileInput = useRef();
 
+    const [photoPrint, setPhotoPrint] = useState(null);
+    
+    const doPhoto = () => {
+        getBase64(fileInput.current.files[0])
+        .then(photo => setPhotoPrint(photo))
+        .catch(_ => {
+            // tylim
+        })
+    }
+
+
     const handleCreate = () => {
         if (cat === '0') {
             showMessage({ text: 'Please, select cat!', type: 'danger' });
             return;
         }
-
-
-    const file = fileInput.current.files[0];
-        if (file) {
-            getBase64(file)
-                .then(photo => {
-                    console.log(photo);
-                    const data = { 
-                        title, 
-                        price: parseFloat(price), 
-                        inStock: inStock ? 1 : 0, 
-                        cat: parseInt(cat),
-                        photo 
-                    };
-                    setCreateProduct(data);
-                    setTitle('');
-                    setPrice('');
-                    setInStock(false);
-                    setCat('0');
-                });
-        } else {
-            const data = { 
-                title, 
-                price: parseFloat(price), 
-                inStock: inStock ? 1 : 0, 
-                cat: parseInt(cat),
-                photo: null
-            };
-            setCreateProduct(data);
-            setTitle('');
-            setPrice('');
-            setInStock(false);
-            setCat('0');
-        }
-
+        const data = { 
+            title, 
+            price: parseFloat(price), 
+            inStock: inStock ? 1 : 0, 
+            cat: parseInt(cat),
+            photo: photoPrint
+        };
+        setCreateProduct(data);
+        setTitle('');
+        setPrice('');
+        setInStock(false);
+        setCat('0');
     }
 
     return (
@@ -87,10 +75,13 @@ function Create() {
                 </div>
                 <div className="form-group">
                     <label>Photo</label>
-                    <input ref={fileInput} type="file" className="form-control" />
+                    <input ref={fileInput} type="file" className="form-control" onChange={doPhoto}/>
                     <small className="form-text text-muted">Upload Photo.</small>
                 </div>
-
+                <div className="photo-bin">
+                    <img src={photoPrint} />
+                </div>
+                
                 <button type="button" className="btn btn-outline-primary" onClick={handleCreate}>Create</button>
             </div>
         </div>
