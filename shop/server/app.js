@@ -26,7 +26,7 @@ const doAuth = function(req, res, next) {
     if (0 === req.url.indexOf('/admin')) {
         const sql = `
         SELECT
-        name
+        name, role
         FROM users
         WHERE session = ?
     `;
@@ -34,7 +34,7 @@ const doAuth = function(req, res, next) {
             sql, [req.headers['authorization'] || ''],
             (err, results) => {
                 if (err) throw err;
-                if (!results.length) {
+                if (!results.length || results[0].role !== 'admin') {
                     res.status(401).send({});
                     req.connection.destroy();
                 } else {
@@ -54,9 +54,9 @@ app.get("/login-check", (req, res) => {
     SELECT
     name
     FROM users
-    WHERE session = ?
+    WHERE session = ? AND role = ?
     `;
-    con.query(sql, [req.headers['authorization'] || ''], (err, result) => {
+    con.query(sql, [req.headers['authorization'] || '', req.query.role], (err, result) => {
         if (err) throw err;
         if (!result.length) {
             res.send({ msg: 'error' });
