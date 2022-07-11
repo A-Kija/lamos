@@ -23,7 +23,7 @@ const con = mysql.createConnection({
 });
 
 const doAuth = function(req, res, next) {
-    if (0 === req.url.indexOf('/admin')) {
+    if (0 === req.url.indexOf('/admin')) { // admin
         const sql = `
         SELECT
         name, role
@@ -42,8 +42,27 @@ const doAuth = function(req, res, next) {
                 }
             }
         );
-    } else {
+    } else if (0 === req.url.indexOf('/login-check') || 0 === req.url.indexOf('/login')) {
         next();
+    } else { // fron
+        const sql = `
+        SELECT
+        name, role
+        FROM users
+        WHERE session = ?
+    `;
+        con.query(
+            sql, [req.headers['authorization'] || ''],
+            (err, results) => {
+                if (err) throw err;
+                if (!results.length || results[0].role !== 'user') {
+                    res.status(401).send({});
+                    req.connection.destroy();
+                } else {
+                    next();
+                }
+            }
+        );
     }
 }
 app.use(doAuth)
