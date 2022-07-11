@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { authConfig } from '../../Functions/auth';
 import axios from 'axios';
 import FrontContext from "./FrontContext";
+import SortFilter from "./SortFilter";
 
 
 function Front() {
@@ -24,6 +25,7 @@ function Front() {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
+                        <SortFilter />
                     </div>
                     <div className="col-12">
                         <List />
