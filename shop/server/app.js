@@ -55,7 +55,7 @@ const doAuth = function(req, res, next) {
             sql, [req.headers['authorization'] || ''],
             (err, results) => {
                 if (err) throw err;
-                if (!results.length || results[0].role !== 'user') {
+                if (!results.length) {
                     res.status(401).send({});
                     req.connection.destroy();
                 } else {
@@ -69,13 +69,26 @@ app.use(doAuth)
 
 // AUTH
 app.get("/login-check", (req, res) => {
-    const sql = `
-    SELECT
-    name
-    FROM users
-    WHERE session = ? AND role = ?
-    `;
-    con.query(sql, [req.headers['authorization'] || '', req.query.role], (err, result) => {
+    let sql;
+    let requests;
+    if (req.query.role === 'admin') {
+        sql = `
+        SELECT
+        name
+        FROM users
+        WHERE session = ? AND role = ?
+        `;
+        requests = [req.headers['authorization'] || '', req.query.role];
+    } else {
+        sql = `
+        SELECT
+        name
+        FROM users
+        WHERE session = ?
+        `;
+        requests = [req.headers['authorization'] || ''];
+    }
+    con.query(sql, requests, (err, result) => {
         if (err) throw err;
         if (!result.length) {
             res.send({ msg: 'error' });
