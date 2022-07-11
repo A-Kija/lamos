@@ -14,12 +14,13 @@ function Front() {
 
     useEffect(() => {
         axios.get('http://localhost:3003/products', authConfig())
-            .then(res => setProducts(res.data));
+            .then(res => setProducts(res.data.map((p, i) => ({...p, row:i}))));
     }, []);
 
     return (
         <FrontContext.Provider value={{
-            products
+            products,
+            setProducts
         }}>
             <Nav />
             <div className="container">
