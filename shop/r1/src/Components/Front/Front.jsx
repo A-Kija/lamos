@@ -9,7 +9,8 @@ import SortFilter from "./SortFilter";
 
 function Front() {
 
-    const [products, setProducts] = useState(null)
+    const [products, setProducts] = useState(null);
+    const [cats, setCats] = useState(null);
 
 
     useEffect(() => {
@@ -17,10 +18,16 @@ function Front() {
             .then(res => setProducts(res.data.map((p, i) => ({...p, row:i}))));
     }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:3003/cats', authConfig())
+            .then(res => setCats(res.data));
+    }, []);
+
     return (
         <FrontContext.Provider value={{
             products,
-            setProducts
+            setProducts,
+            cats
         }}>
             <Nav />
             <div className="container">
