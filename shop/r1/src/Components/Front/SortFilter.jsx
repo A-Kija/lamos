@@ -2,7 +2,7 @@
 import { useContext, useState } from 'react';
 
 function SortFilter() {
-    
+
 
     return (
         <div className="card mt-4">
@@ -10,11 +10,17 @@ function SortFilter() {
                 <h2>Sort and Filter</h2>
             </div>
             <div className="card-body">
-                <div className="form-group">
-                    <label>Sort By</label>
-                    <select className="form-control">
-                        <option value="0">Please, select your Sort</option>
-                    </select>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-4">
+                            <div className="form-group">
+                                <label>Sort By</label>
+                                <select className="form-control">
+                                    <option value="0">Please, select your Sort</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
