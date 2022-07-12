@@ -7,7 +7,7 @@ function Nav() {
                 <div className="row">
                     <div className="col-12">
                         <nav className="nav">
-                            Welcomen
+                            Willkommen. Ja ja das ist gut.
                         </nav>
                     </div>
                 </div>

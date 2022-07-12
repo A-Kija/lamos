@@ -16,6 +16,8 @@ function Front() {
 
     const [cat, setCat] = useState(0);
 
+    const [search, setSearch] = useState('');
+
 
     const doFilter = cid => {
         setCat(cid);
@@ -24,16 +26,18 @@ function Front() {
 
     useEffect(() => {
         let query;
-        if (filter === 0) {
+        if (filter === 0 && !search) {
             query = '';
-        } else {
+        } else if (filter) {
             query = '?cat-id=' + filter
+        } else if (search) {
+            query = '?s=' + search
         }
 
 
         axios.get('http://localhost:3003/products' + query, authConfig())
-            .then(res => setProducts(res.data.map((p, i) => ({...p, row:i}))));
-    }, [filter]);
+            .then(res => setProducts(res.data.map((p, i) => ({ ...p, row: i }))));
+    }, [filter, search]);
 
     useEffect(() => {
         axios.get('http://localhost:3003/cats', authConfig())
@@ -48,7 +52,8 @@ function Front() {
             setFilter,
             cat,
             setCat,
-            doFilter
+            doFilter,
+            setSearch
         }}>
             <Nav />
             <div className="container">

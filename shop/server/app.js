@@ -238,7 +238,7 @@ app.get("/products", (req, res) => {
     let sql;
     let requests;
     console.log(req.query['cat-id']);
-    if (!req.query['cat-id']) {
+    if (!req.query['cat-id'] && !req.query['s']) {
         sql = `
         SELECT p.id, c.id AS cid, price, p.title, c.title AS cat, in_stock, last_update AS lu, photo
         FROM products AS p
@@ -247,7 +247,7 @@ app.get("/products", (req, res) => {
         ORDER BY title
         `;
         requests = [];
-    } else {
+    } else if (req.query['cat-id']) {
         sql = `
         SELECT p.id, c.id AS cid, price, p.title, c.title AS cat, in_stock, last_update AS lu, photo
         FROM products AS p
@@ -257,6 +257,16 @@ app.get("/products", (req, res) => {
         ORDER BY title
         `;
         requests = [req.query['cat-id']];
+    } else {
+        sql = `
+        SELECT p.id, c.id AS cid, price, p.title, c.title AS cat, in_stock, last_update AS lu, photo
+        FROM products AS p
+        LEFT JOIN cats AS c
+        ON c.id = p.cats_id
+        WHERE p.title LIKE ? 
+        ORDER BY title
+        `;
+        requests = ['%' + req.query['s'] + '%'];
     }
     con.query(sql, requests, (err, result) => {
         if (err) throw err;
