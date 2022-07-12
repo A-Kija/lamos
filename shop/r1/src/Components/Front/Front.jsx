@@ -14,6 +14,14 @@ function Front() {
     const [filter, setFilter] = useState(0);
 
 
+    const [cat, setCat] = useState(0);
+
+
+    const doFilter = cid => {
+        setCat(cid);
+        setFilter(parseInt(cid));
+    }
+
     useEffect(() => {
         let query;
         if (filter === 0) {
@@ -37,7 +45,10 @@ function Front() {
             products,
             setProducts,
             cats,
-            setFilter
+            setFilter,
+            cat,
+            setCat,
+            doFilter
         }}>
             <Nav />
             <div className="container">
