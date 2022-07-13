@@ -7,9 +7,7 @@ function Crud() {
             <Nav />
             <div className="container">
                 <div className="row">
-                    <div className="col-4">
-                    </div>
-                    <div className="col-8">
+                    <div className="col-12">
                         <List/>
                     </div>
                 </div>

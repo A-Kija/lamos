@@ -306,7 +306,31 @@ app.post("/comments", (req, res) => {
         res.send({ result });
     });
 });
+app.get("/admin/comments", (req, res) => {
+    const sql = `
+  SELECT com.id AS id, com, title
+  FROM comments AS com
+  INNER JOIN
+  products AS p
+  ON com.product_id = p.id
+  ORDER BY p.title
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
 
+app.delete("/admin/comments/:id", (req, res) => {
+    const sql = `
+    DELETE FROM comments
+    WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'OK, Stupid comment gone', type: 'success' } });
+    });
+});
 
 
 
