@@ -10,7 +10,8 @@ function Line({ line }) {
 
 
     const addComment = () => {
-        setAddCom({product_id: line.id, com})
+        setAddCom({product_id: line.id, com});
+        setCom('');
     }
 
 
