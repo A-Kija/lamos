@@ -20,7 +20,11 @@ function Line({ line }) {
             <div className="item front">
                 <div className="content">
                     <b>{line.title}</b>
-                    <i>{line.price.toFixed(2)} EUR</i>
+
+                    {
+                        line.cur ? <i>{line.curVal} {line.cur}</i> : <i>{line.price.toFixed(2)} USD</i>
+                    }
+
                     <div className="box" style={{ backgroundColor: line.in_stock ? 'coral' : null }}></div>
                     <span>{new Date(Date.parse(line.lu)).toLocaleString()}</span>
                     <div className="cat" onClick={() => doFilter(line.cid)}>{line.cat}</div>

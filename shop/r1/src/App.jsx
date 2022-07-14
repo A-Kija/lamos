@@ -19,13 +19,15 @@ function App() {
 
 
   useEffect(() => {
-    axios.get('https://api.currencyapi.com/v3/latest?apikey=' + apikey)
-    .then(res => {
-      console.log(res.data)
-      axios.post('http://localhost:3003/admin/cur', res.data, authConfig())
-      .then(r => console.log(r))
 
-    })
+    if (false) {
+      axios.get('https://api.currencyapi.com/v3/latest?apikey=' + apikey)
+      .then(res => {
+        axios.post('http://localhost:3003/admin/cur', res.data, authConfig())
+        .then(r => console.log(r))
+      })
+    }
+
       
 
 

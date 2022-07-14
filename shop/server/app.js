@@ -336,21 +336,35 @@ app.delete("/admin/comments/:id", (req, res) => {
 
 //cur
 app.post("/admin/cur", (req, res) => {
-
+    let val = '';
     for (const o in req.body.data) {
         console.log(req.body.data[o]);
+        val += `('${req.body.data[o].code}', ${req.body.data[o].value}),`
     }
+    val = val.slice(0, -1);
+    const sql = `
+    INSERT INTO cur
+    /* this is a multiple-line comment */
+    (code, value)
+    VALUES ${val}
+    ON DUPLICATE KEY UPDATE 
+    value = VALUES(value)
+    `;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send({ result });
+    });
+});
 
-
-    // const sql = `
-    // INSERT INTO cur
-    // (com, product_id)
-    // VALUES (?, ?)
-    // `;
-    // con.query(sql, [req.body.com, req.body.product_id, ], (err, result) => {
-    //     if (err) throw err;
-    //     res.send({ result });
-    // });
+app.get("/cur", (req, res) => {
+    const sql = `
+  SELECT *
+  FROM cur
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
 });
 
 
