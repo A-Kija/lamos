@@ -15,12 +15,14 @@ app.use(
 );
 app.use(express.json());
 
+
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "la_ma_shop",
 });
+
 
 const doAuth = function(req, res, next) {
     if (0 === req.url.indexOf('/admin')) { // admin
@@ -331,6 +333,26 @@ app.delete("/admin/comments/:id", (req, res) => {
         res.send({ result, msg: { text: 'OK, Stupid comment gone', type: 'success' } });
     });
 });
+
+//cur
+app.post("/admin/cur", (req, res) => {
+
+    for (const o in req.body.data) {
+        console.log(req.body.data[o]);
+    }
+
+
+    // const sql = `
+    // INSERT INTO cur
+    // (com, product_id)
+    // VALUES (?, ?)
+    // `;
+    // con.query(sql, [req.body.com, req.body.product_id, ], (err, result) => {
+    //     if (err) throw err;
+    //     res.send({ result });
+    // });
+});
+
 
 
 
