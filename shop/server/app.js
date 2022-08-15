@@ -15,6 +15,7 @@ app.use(
 );
 app.use(express.json());
 
+
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -22,8 +23,9 @@ const con = mysql.createConnection({
     database: "la_ma_shop",
 });
 
+
 const doAuth = function(req, res, next) {
-    if (0 === req.url.indexOf('/admin')) {
+    if (0 === req.url.indexOf('/admin')) { // admin
         const sql = `
         SELECT
         name, role
@@ -42,21 +44,53 @@ const doAuth = function(req, res, next) {
                 }
             }
         );
-    } else {
+    } else if (0 === req.url.indexOf('/login-check') || 0 === req.url.indexOf('/login')) {
         next();
+    } else { // fron
+        const sql = `
+        SELECT
+        name, role
+        FROM users
+        WHERE session = ?
+    `;
+        con.query(
+            sql, [req.headers['authorization'] || ''],
+            (err, results) => {
+                if (err) throw err;
+                if (!results.length) {
+                    res.status(401).send({});
+                    req.connection.destroy();
+                } else {
+                    next();
+                }
+            }
+        );
     }
 }
 app.use(doAuth)
 
 // AUTH
 app.get("/login-check", (req, res) => {
-    const sql = `
-    SELECT
-    name
-    FROM users
-    WHERE session = ? AND role = ?
-    `;
-    con.query(sql, [req.headers['authorization'] || '', req.query.role], (err, result) => {
+    let sql;
+    let requests;
+    if (req.query.role === 'admin') {
+        sql = `
+        SELECT
+        name
+        FROM users
+        WHERE session = ? AND role = ?
+        `;
+        requests = [req.headers['authorization'] || '', req.query.role];
+    } else {
+        sql = `
+        SELECT
+        name
+        FROM users
+        WHERE session = ?
+        `;
+        requests = [req.headers['authorization'] || ''];
+    }
+    con.query(sql, requests, (err, result) => {
         if (err) throw err;
         if (!result.length) {
             res.send({ msg: 'error' });
@@ -65,6 +99,7 @@ app.get("/login-check", (req, res) => {
         }
     });
 });
+
 
 app.post("/login", (req, res) => {
     const key = uuid.v4();
@@ -160,6 +195,8 @@ app.get("/admin/products", (req, res) => {
     });
 });
 
+
+
 app.delete("/admin/products/:id", (req, res) => {
     const sql = `
     DELETE FROM products
@@ -192,6 +229,141 @@ app.delete("/admin/photos/:id", (req, res) => {
     con.query(sql, [req.params.id], (err, result) => {
         if (err) throw err;
         res.send({ result, msg: { text: 'OK, photo gone. Have a nice day.', type: 'success' } });
+    });
+});
+
+
+
+// FRONT
+
+app.get("/products", (req, res) => {
+    let sql;
+    let requests;
+    console.log(req.query['cat-id']);
+    if (!req.query['cat-id'] && !req.query['s']) {
+        sql = `
+        SELECT com.id AS com_id, com, p.id, c.id AS cid, price, p.title, c.title AS cat, in_stock, last_update AS lu, photo
+        FROM products AS p
+        LEFT JOIN cats AS c
+        ON c.id = p.cats_id
+        LEFT JOIN comments AS com
+        ON p.id = com.product_id
+        ORDER BY title
+        `;
+        requests = [];
+    } else if (req.query['cat-id']) {
+        sql = `
+        SELECT com.id AS com_id, com, p.id, c.id AS cid, price, p.title, c.title AS cat, in_stock, last_update AS lu, photo
+        FROM products AS p
+        LEFT JOIN cats AS c
+        ON c.id = p.cats_id
+        LEFT JOIN comments AS com
+        ON p.id = com.product_id
+        WHERE p.cats_id = ?
+        ORDER BY title
+        `;
+        requests = [req.query['cat-id']];
+    } else {
+        sql = `
+        SELECT com.id AS com_id, com, p.id, c.id AS cid, price, p.title, c.title AS cat, in_stock, last_update AS lu, photo
+        FROM products AS p
+        LEFT JOIN cats AS c
+        ON c.id = p.cats_id
+        LEFT JOIN comments AS com
+        ON p.id = com.product_id
+        WHERE p.title LIKE ? 
+        ORDER BY title
+        `;
+        requests = ['%' + req.query['s'] + '%'];
+    }
+    con.query(sql, requests, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+
+app.get("/cats", (req, res) => {
+    const sql = `
+  SELECT *
+  FROM cats
+  ORDER BY title
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+
+// Comments
+app.post("/comments", (req, res) => {
+    const sql = `
+    INSERT INTO comments
+    (com, product_id)
+    VALUES (?, ?)
+    `;
+    con.query(sql, [req.body.com, req.body.product_id, ], (err, result) => {
+        if (err) throw err;
+        res.send({ result });
+    });
+});
+app.get("/admin/comments", (req, res) => {
+    const sql = `
+  SELECT com.id AS id, com, title
+  FROM comments AS com
+  INNER JOIN
+  products AS p
+  ON com.product_id = p.id
+  ORDER BY p.title
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.delete("/admin/comments/:id", (req, res) => {
+    const sql = `
+    DELETE FROM comments
+    WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err, result) => {
+        if (err) throw err;
+        res.send({ result, msg: { text: 'OK, Stupid comment gone', type: 'success' } });
+    });
+});
+
+//cur
+app.post("/admin/cur", (req, res) => {
+    let val = '';
+    for (const o in req.body.data) {
+        console.log(req.body.data[o]);
+        val += `('${req.body.data[o].code}', ${req.body.data[o].value}),`
+    }
+    val = val.slice(0, -1);
+    const sql = `
+    INSERT INTO cur
+    /* this is a multiple-line comment */
+    (code, value)
+    VALUES ${val}
+    ON DUPLICATE KEY UPDATE 
+    value = VALUES(value)
+    `;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send({ result });
+    });
+});
+
+app.get("/cur", (req, res) => {
+    const sql = `
+  SELECT *
+  FROM cur
+`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
     });
 });
 

@@ -12,30 +12,52 @@ import Front from './Components/Front/Front';
 import { login, logout, authConfig } from './Functions/auth';
 import axios from 'axios';
 import { useState, useEffect } from "react";
+import {apikey} from './Functions/key';
 
 function App() {
+
+
+
+  useEffect(() => {
+
+    if (false) {
+      axios.get('https://api.currencyapi.com/v3/latest?apikey=' + apikey)
+      .then(res => {
+        axios.post('http://localhost:3003/admin/cur', res.data, authConfig())
+        .then(r => console.log(r))
+      })
+    }
+
+      
+
+
+    
+    
+  }, [])
+
 
     return (
         <BrowserRouter>
         
         <Routes>
-            <Route path="/" element={<Front/>} />
+            <Route path="/" element={<RequireAuth role="user"><Front/></RequireAuth>} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<LogoutPage />} />
-            <Route path="/admin" element={<RequireAuth><Back show="admin" /></RequireAuth>} />
-            <Route path="/admin/cats" element={<RequireAuth><Back show="cats"/></RequireAuth>} />
-            <Route path="/admin/products" element={<RequireAuth><Back show="products"/></RequireAuth>} />
+            <Route path="/admin" element={<RequireAuth role="admin"><Back show="admin" /></RequireAuth>} />
+            <Route path="/admin/cats" element={<RequireAuth role="admin"><Back show="cats"/></RequireAuth>} />
+            <Route path="/admin/products" element={<RequireAuth role="admin"><Back show="products"/></RequireAuth>} />
+            <Route path="/admin/comments" element={<RequireAuth role="admin"><Back show="com"/></RequireAuth>} />
         </Routes>
             
         </BrowserRouter>
     )
 }
 
-function RequireAuth({ children }) {
+function RequireAuth({ children, role }) {
     const [view, setView] = useState(<h2>Please wait...</h2>);
   
     useEffect(() => {
-      axios.get('http://localhost:3003/login-check?role=admin', authConfig())
+      axios.get('http://localhost:3003/login-check?role=' + role, authConfig())
         .then(res => {
           if ('ok' === res.data.msg) {
             setView(children);
@@ -44,10 +66,14 @@ function RequireAuth({ children }) {
           }
         })
   
-    }, [children]);
+    }, [children, role]);
   
     return view;
   }
+
+
+
+  
   
   function LoginPage() {
     const navigate = useNavigate();
@@ -61,7 +87,7 @@ function RequireAuth({ children }) {
           console.log(res.data);
           if ('ok' === res.data.msg) {
             login(res.data.key);
-            navigate('/admin/', { replace: true });
+            navigate('/', { replace: true });
           }
         })
     }
